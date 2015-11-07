@@ -196,6 +196,7 @@ Dictionary::add_translation(const std::string& msgctxt,
   else
   {
     //log_warning << "collision in add_translation(\"" << msgctxt << "\", \"" << msgid << "\", \"" << msgid_plural << "\")" << std::endl;
+    (void) msgid_plural;
     vec = msgstrs;
   }
 }
