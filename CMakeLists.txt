@@ -93,7 +93,7 @@ set_source_files_properties(${TINYGETTEXT_SOURCES} PROPERTIES COMPILE_DEFINITION
 INCLUDE_DIRECTORIES(tinygettext PUBLIC ${SDL2_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(tinygettext PUBLIC ${SDL2_LIBRARIES})
 
-endif(HAVE_SDL)
+else(HAVE_SDL)
 
 ## Add iconv to include directories
 find_package(ICONV REQUIRED)
@@ -121,7 +121,7 @@ endif(HAVE_ICONV_CONST)
 include_directories(${ICONV_INCLUDE_DIR})
 target_link_libraries(tinygettext PUBLIC ${ICONV_LIBRARY})
 
-
+endif(HAVE_SDL)
 
 ## Debug options
 
