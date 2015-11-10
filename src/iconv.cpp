@@ -110,7 +110,7 @@ IConv::convert(const std::string& text)
 
     // We try to avoid to much copying around, so we write directly into
     // a std::string
-    tinygettext_ICONV_CONST char* inbuf = const_cast<char*>(&text[0]);
+    const char* inbuf = const_cast<char*>(&text[0]);
     std::string result(outbytesleft, 'X');
     char* outbuf = &result[0];
 
