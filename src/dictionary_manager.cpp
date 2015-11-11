@@ -129,7 +129,9 @@ DictionaryManager::get_dictionary(const Language& language)
 
           if (!po_language)
           {
+#ifdef DEBUG
             log_warning << *filename << ": warning: ignoring, unknown language" << std::endl;
+#endif
           }
           else
           {
@@ -169,7 +171,9 @@ DictionaryManager::get_dictionary(const Language& language)
 
     if (!language.get_country().empty())
     {
-        // printf("Adding language fallback %s\n", language.get_language().c_str());
+#ifdef DEBUG
+        printf("Adding language fallback %s\n", language.get_language().c_str());
+#endif
         dict->addFallback( &get_dictionary(Language::from_spec(language.get_language())) );
     }
     return *dict;
