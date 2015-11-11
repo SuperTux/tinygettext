@@ -39,7 +39,7 @@ set(VERSION "0.1")
 
 ### CMake configuration
 
-cmake_minimum_required(VERSION 2.4)
+cmake_minimum_required(VERSION 3.1)
 if(COMMAND cmake_policy)
 	CMAKE_POLICY(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
@@ -71,6 +71,7 @@ file(GLOB TINYGETTEXT_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} include/tinyg
 ## define a target for building the library
 
 add_library(tinygettext ${TINYGETTEXT_SOURCES})
+SET_PROPERTY(TARGET tinygettext PROPERTY CXX_STANDARD 11)
 
 ## Fix Windows exports
 
