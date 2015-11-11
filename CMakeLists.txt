@@ -201,12 +201,15 @@ set(EXECUTABLE_OUTPUT_PATH ${tinygettext_BINARY_DIR}/test)
 
 ## Build tinygettext tests
 
-foreach(TEST tinygettext_test po_parser_test)
-  ## Add target for tinygettext test
-  add_executable(${TEST} test/${TEST}.cpp)
-  ## Link with tinygettext library
-  target_link_libraries(${TEST} tinygettext)
-endforeach(TEST)
+OPTION(TINYGETTEXT_BUILD_TEST "Build tinygettext tesst executables" OFF)
+if(TINYGETTEXT_BUILD_TEST)
+    foreach(TEST tinygettext_test po_parser_test)
+      ## Add target for tinygettext test
+      add_executable(${TEST} test/${TEST}.cpp)
+      ## Link with tinygettext library
+      target_link_libraries(${TEST} tinygettext)
+    endforeach(TEST)
+endif(TINYGETTEXT_BUILD_TEST)
 
 ## Install tinygettext
 
@@ -218,6 +221,7 @@ set(LIB_SUBDIR "lib${LIB_SUFFIX}"
 configure_file(tinygettext.pc.in tinygettext.pc @ONLY)
 
 install(TARGETS tinygettext
+    RUNTIME DESTINATION bin
 	ARCHIVE DESTINATION ${LIB_SUBDIR}
 	LIBRARY DESTINATION ${LIB_SUBDIR})
 install(FILES ${TINYGETTEXT_HEADERS}
