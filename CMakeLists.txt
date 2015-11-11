@@ -111,7 +111,8 @@ check_cxx_source_compiles(
 	HAVE_ICONV_CONST
 )
 
-# TODO: better way of config
+# TODO: better way of config (until then...)
+CHECK_CXX_FLAG(fpermissive)
 
 if(HAVE_ICONV_CONST)
   add_definitions(-DHAVE_ICONV_CONST)
