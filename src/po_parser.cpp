@@ -206,10 +206,8 @@ next:
     if (current_line[i] == '"')
     {
       if (i == 1)
-#ifdef DEBUG
         if (pedantic)
           warning("leading whitespace before string");
-#endif
 
       get_string_line(out,  i);
       goto next;
@@ -259,9 +257,7 @@ POParser::parse_header(const std::string& header)
         }
         else
         {
-#ifdef DEBUG
           warning("malformed Content-Type header");
-#endif
         }
       }
       else if (has_prefix(line, "Plural-Forms:"))
@@ -281,9 +277,7 @@ POParser::parse_header(const std::string& header)
           {
             if (dict.get_plural_forms() != plural_forms)
             {
-#ifdef DEBUG
               warning("Plural-Forms missmatch between .po file and dictionary");
-#endif
             }
           }
         }
@@ -294,9 +288,7 @@ POParser::parse_header(const std::string& header)
 
   if (from_charset.empty() || from_charset == "CHARSET")
   {
-#ifdef DEBUG
     warning("charset not specified for .po, fallback to utf-8");
-#endif
     from_charset = "UTF-8";
   }
   else if (from_charset == "BIG5")
@@ -430,17 +422,13 @@ POParser::parse()
             {
 	      if (!dict.get_plural_forms())
 	      {
-#ifdef DEBUG
 		warning("msgstr[N] seen, but no Plural-Forms given");
-#endif
 	      }
 	      else
 	      {
 		if (msgstr_num.size() != dict.get_plural_forms().get_nplural())
 		{
-#ifdef DEBUG
 		  warning("msgstr[N] count doesn't match Plural-Forms.nplural");
-#endif
 		}
 	      }
 
