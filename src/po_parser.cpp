@@ -38,10 +38,11 @@ namespace tinygettext {
 bool POParser::pedantic = true;
 
 void
-POParser::parse(const std::string& filename, std::istream& in, Dictionary& dict)
+POParser::parse(const std::string& filename, std::istream& in, Dictionary& dict,
+                bool override)
 {
   POParser parser(filename, in, dict);
-  parser.parse();
+  parser.parse(override);
 }
 
 class POParserError {};
@@ -331,7 +332,7 @@ POParser::prefix(const char* prefix_str)
 }
 
 void
-POParser::parse()
+POParser::parse(bool override)
 {
   next_line();
 
@@ -433,9 +434,9 @@ POParser::parse()
 	      }
 
 	      if (has_msgctxt)
-		dict.add_translation(msgctxt, msgid, msgid_plural, msgstr_num);
+		dict.add_translation(msgctxt, msgid, msgid_plural, msgstr_num, override);
 	      else
-		dict.add_translation(msgid, msgid_plural, msgstr_num);
+		dict.add_translation(msgid, msgid_plural, msgstr_num, override);
 	    }
 
 	    if (0)
@@ -462,9 +463,9 @@ POParser::parse()
             if (use_fuzzy || !fuzzy)
             {
               if (has_msgctxt)
-                dict.add_translation(msgctxt, msgid, conv.convert(msgstr));
+                dict.add_translation(msgctxt, msgid, conv.convert(msgstr), override);
               else
-                dict.add_translation(msgid, conv.convert(msgstr));
+                dict.add_translation(msgid, conv.convert(msgstr), override);
             }
 
             if (0)

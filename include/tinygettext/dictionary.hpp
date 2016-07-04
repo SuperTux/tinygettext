@@ -86,15 +86,17 @@ public:
       translation will be calculated based on the \a num argument to
       translate(). */
   void add_translation(const std::string& msgid, const std::string& msgid_plural,
-                       const std::vector<std::string>& msgstrs);
+                       const std::vector<std::string>& msgstrs, bool override = false);
   void add_translation(const std::string& msgctxt,
                        const std::string& msgid, const std::string& msgid_plural,
-                       const std::vector<std::string>& msgstrs);
+                       const std::vector<std::string>& msgstrs, bool override = false);
 
   /** Add a translation from \a msgid to \a msgstr to the
       dictionary */
-  void add_translation(const std::string& msgid, const std::string& msgstr);
-  void add_translation(const std::string& msgctxt, const std::string& msgid, const std::string& msgstr);
+  void add_translation(const std::string& msgid, const std::string& msgstr,
+                       bool override = false);
+  void add_translation(const std::string& msgctxt, const std::string& msgid, const std::string& msgstr,
+                       bool override = false);
 
   /** Iterate over all messages, Func is of type:
       void func(const std::string& msgid, const std::vector<std::string>& msgstrs) */

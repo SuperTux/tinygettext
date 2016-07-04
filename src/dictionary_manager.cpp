@@ -43,6 +43,7 @@ static bool has_suffix(const std::string& lhs, const std::string& rhs)
 DictionaryManager::DictionaryManager(std::unique_ptr<FileSystem> filesystem_, const std::string& charset_) :
   dictionaries(),
   search_path(),
+  overrideMap(),
   charset(charset_),
   use_fuzzy(true),
   current_language(),
@@ -111,6 +112,7 @@ DictionaryManager::get_dictionary(const Language& language)
     Dictionary* dict = new Dictionary(charset);
 
     dictionaries[language] = dict;
+    bool shall_override = false;
 
     for (SearchPath::reverse_iterator p = search_path.rbegin(); p != search_path.rend(); ++p)
     {
@@ -139,6 +141,7 @@ DictionaryManager::get_dictionary(const Language& language)
             {
               best_score = score;
               best_filename = *filename;
+              shall_override = overrideMap.find(*p) != overrideMap.end();
             }
           }
         }
@@ -156,7 +159,7 @@ DictionaryManager::get_dictionary(const Language& language)
           }
           else
           {
-            POParser::parse(pofile, *in, *dict);
+            POParser::parse(pofile, *in, *dict, shall_override);
           }
         }
         catch(std::exception& e)
@@ -233,8 +236,12 @@ DictionaryManager::get_use_fuzzy() const
 }
 
 void
-DictionaryManager::add_directory(const std::string& pathname)
+DictionaryManager::add_directory(const std::string& pathname, bool override_old)
 {
+    if(override_old)
+    {
+      overrideMap.insert(std::make_pair(pathname, override_old));
+    }
     if(std::find(search_path.begin(), search_path.end(), pathname) == search_path.end()) {
         clear_cache(); // adding directories invalidates cache
         search_path.push_back(pathname);

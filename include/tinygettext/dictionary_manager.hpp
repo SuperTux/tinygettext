@@ -22,6 +22,7 @@
 
 #include "tinygettext_Export.h"
 
+#include <map>
 #include <memory>
 #include <set>
 #include <string>
@@ -46,6 +47,10 @@ private:
 
   typedef std::vector<std::string> SearchPath;
   SearchPath search_path;
+
+  /* Map that specifies whether translations found in
+     the specified directory should override other translations */
+  std::map<std::string, bool> overrideMap;
 
   std::string charset;
   bool        use_fuzzy;
@@ -84,7 +89,7 @@ public:
 
   /** Add a directory to the search path for dictionaries, earlier
       added directories have higher priority then later added ones */
-  void add_directory(const std::string& pathname);
+  void add_directory(const std::string& pathname, bool override_old = false);
 
   /** Remove a directory from the search path */
   void remove_directory(const std::string& pathname);
