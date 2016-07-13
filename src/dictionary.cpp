@@ -169,9 +169,17 @@ Dictionary::translate_ctxt_plural(const std::string& msgctxt,
 
 void
 Dictionary::add_translation(const std::string& msgid, const std::string& msgid_plural,
-                            const std::vector<std::string>& msgstrs)
+                            const std::vector<std::string>& msgstrs, bool override)
 {
   std::vector<std::string>& vec = entries[msgid];
+
+  if(!vec.empty() && !override)
+    return;
+
+  if(override)
+  {
+    vec.clear();
+  }
   if (vec.empty())
   {
     vec = msgstrs;
@@ -186,9 +194,18 @@ Dictionary::add_translation(const std::string& msgid, const std::string& msgid_p
 }
 
 void
-Dictionary::add_translation(const std::string& msgid, const std::string& msgstr)
+Dictionary::add_translation(const std::string& msgid, const std::string& msgstr,
+                            bool override)
 {
   std::vector<std::string>& vec = entries[msgid];
+
+  if(!vec.empty() && !override)
+    return;
+
+  if(override)
+  {
+    vec.clear();
+  }
   if (vec.empty())
   {
     vec.push_back(msgstr);
@@ -204,9 +221,17 @@ Dictionary::add_translation(const std::string& msgid, const std::string& msgstr)
 void
 Dictionary::add_translation(const std::string& msgctxt,
                             const std::string& msgid, const std::string& msgid_plural,
-                            const std::vector<std::string>& msgstrs)
+                            const std::vector<std::string>& msgstrs,
+                            bool override)
 {
   std::vector<std::string>& vec = ctxt_entries[msgctxt][msgid];
+  if(!vec.empty() && !override)
+    return;
+
+  if(override)
+  {
+    vec.clear();
+  }
   if (vec.empty())
   {
     vec = msgstrs;
@@ -219,9 +244,17 @@ Dictionary::add_translation(const std::string& msgctxt,
 }
 
 void
-Dictionary::add_translation(const std::string& msgctxt, const std::string& msgid, const std::string& msgstr)
+Dictionary::add_translation(const std::string& msgctxt, const std::string& msgid, const std::string& msgstr,
+                            bool override)
 {
   std::vector<std::string>& vec = ctxt_entries[msgctxt][msgid];
+  if(!vec.empty() && !override)
+    return;
+
+  if(override)
+  {
+    vec.clear();
+  }
   if (vec.empty())
   {
     vec.push_back(msgstr);
