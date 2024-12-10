@@ -23,7 +23,7 @@
 #include <string>
 
 #ifdef TINYGETTEXT_WITH_SDL
-#  include "SDL.h"
+#  include <SDL.h>
 #else
 #  include <iconv.h>
 #endif

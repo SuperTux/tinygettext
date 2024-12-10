@@ -49,8 +49,7 @@ if(TINYGETTEXT_WITH_SDL)
   # You can use find_package or pkgconfig before adding this submodule
   # to fix this issue.
   target_compile_definitions(tinygettext PUBLIC TINYGETTEXT_WITH_SDL)
-  target_link_libraries(tinygettext PUBLIC ${SDL2_LIBRARY})
-  target_include_directories(tinygettext PUBLIC ${SDL2_INCLUDE_DIRS})
+  target_link_libraries(tinygettext PUBLIC SDL2)
 else()
   find_package(Iconv REQUIRED)
   target_link_libraries(tinygettext PUBLIC Iconv::Iconv)
