@@ -61,6 +61,7 @@ endif()
 
 configure_file(tinygettext.pc.in tinygettext.pc @ONLY)
 
+include(GNUInstallDirs)
 install(TARGETS tinygettext
   EXPORT tinygettext-targets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
