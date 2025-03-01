@@ -36,18 +36,9 @@ target_include_directories(tinygettext PUBLIC
   $<INSTALL_INTERFACE:include>)
 target_compile_definitions(tinygettext PRIVATE VERSION=${TINYGETTEXT_VERSION})
 
-if(WIN32)
-  set(TGT_SDL_DEFAULT ON)
-else()
-  set(TGT_SDL_DEFAULT OFF)
-endif()
-option(TINYGETTEXT_WITH_SDL "Use SDL's iconv implementation with tinygettext. Ideal for Windows" ${TGT_SDL_DEFAULT})
+option(TINYGETTEXT_WITH_SDL "Use SDL's iconv implementation with tinygettext. Ideal for Windows" ON)
 
 if(TINYGETTEXT_WITH_SDL)
-  # If your CMake configuration is failing here, that's because
-  # the variables SDL2_LIBRARY and SDL2_INCLUDE_DIRS must be defined.
-  # You can use find_package or pkgconfig before adding this submodule
-  # to fix this issue.
   target_compile_definitions(tinygettext PUBLIC TINYGETTEXT_WITH_SDL)
   target_link_libraries(tinygettext PUBLIC SDL2)
 else()
