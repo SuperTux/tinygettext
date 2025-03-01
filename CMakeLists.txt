@@ -36,7 +36,7 @@ target_include_directories(tinygettext PUBLIC
   $<INSTALL_INTERFACE:include>)
 target_compile_definitions(tinygettext PRIVATE VERSION=${TINYGETTEXT_VERSION})
 
-option(TINYGETTEXT_WITH_SDL "Use SDL's iconv implementation with tinygettext. Ideal for Windows" ON)
+option(TINYGETTEXT_WITH_SDL "Use SDL's iconv implementation with tinygettext." ON)
 
 if(TINYGETTEXT_WITH_SDL)
   target_compile_definitions(tinygettext PUBLIC TINYGETTEXT_WITH_SDL)
