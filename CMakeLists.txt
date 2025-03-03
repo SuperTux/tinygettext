@@ -40,7 +40,11 @@ option(TINYGETTEXT_WITH_SDL "Use SDL's iconv implementation with tinygettext." O
 
 if(TINYGETTEXT_WITH_SDL)
   target_compile_definitions(tinygettext PUBLIC TINYGETTEXT_WITH_SDL)
-  target_link_libraries(tinygettext PUBLIC SDL2)
+  if(EMSCRIPTEN)
+    target_compile_options(tinygettext PUBLIC -sUSE_SDL=2)
+  else()
+    target_link_libraries(tinygettext PUBLIC SDL2)
+  endif()
 else()
   find_package(Iconv REQUIRED)
   target_link_libraries(tinygettext PUBLIC Iconv::Iconv)
