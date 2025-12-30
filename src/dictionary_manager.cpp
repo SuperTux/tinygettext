@@ -189,14 +189,29 @@ DictionaryManager::get_languages()
 
   for (SearchPath::iterator p = search_path.begin(); p != search_path.end(); ++p)
   {
-    std::vector<std::string> files = filesystem->open_directory(*p);
-
-    for(std::vector<std::string>::iterator file = files.begin(); file != files.end(); ++file)
+    for (const auto& language : get_languages(*p))
     {
-      if (has_suffix(*file, ".po"))
-      {
-        languages.insert(Language::from_env(file->substr(0, file->size()-3)));
-      }
+      languages.insert(language);
+    }
+  }
+  return languages;
+}
+
+std::set<Language>
+DictionaryManager::get_languages(const std::string& directory)
+{
+  if (std::find(search_path.begin(), search_path.end(), directory) == search_path.end()) {
+    return std::set<Language>();
+  }
+
+  std::set<Language> languages;
+  std::vector<std::string> files = filesystem->open_directory(directory);
+
+  for(std::vector<std::string>::iterator file = files.begin(); file != files.end(); ++file)
+  {
+    if (has_suffix(*file, ".po"))
+    {
+      languages.insert(Language::from_env(file->substr(0, file->size()-3)));
     }
   }
   return languages;
