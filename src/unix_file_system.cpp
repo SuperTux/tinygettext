@@ -18,10 +18,12 @@
 // 3. This notice may not be removed or altered from any source distribution.
 
 #include "tinygettext/unix_file_system.hpp"
-#ifdef TINYGETTEXT_USE_EXPERIMENTAL_FILESYSTEM
-  #include <experimental/filesystem>
+#ifdef TINYGETTEXT_USE_BOOST_FILESYSTEM
+  #include <boost/filesystem.hpp>
+  namespace filesystem = boost::filesystem;
 #else
   #include <filesystem>
+  namespace filesystem = std::filesystem;
 #endif
 #include <fstream>
 
@@ -43,7 +45,7 @@ std::vector<std::string>
 UnixFileSystem::open_directory(const std::string& pathname)
 {
   std::vector<std::string> files;
-  for(auto const& p : std::filesystem::directory_iterator(pathname))
+  for(auto const& p : filesystem::directory_iterator(pathname))
   {
     files.push_back(p.path().filename().string());
   }
