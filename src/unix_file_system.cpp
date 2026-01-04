@@ -18,8 +18,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 
 #include "tinygettext/unix_file_system.hpp"
-
-#include <filesystem>
+#ifdef TINYGETTEXT_USE_EXPERIMENTAL_FILESYSTEM
+  #include <experimental/filesystem>
+#else
+  #include <filesystem>
+#endif
 #include <fstream>
 
 #ifdef WIN32

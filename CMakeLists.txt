@@ -54,6 +54,18 @@ if(WIN32)
   target_compile_definitions(tinygettext PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()
 
+if(APPLE)
+  check_include_file("filesystem" HAVE_FILESYSTEM)
+  if (NOT HAVE_FILESYSTEM)
+    check_include_file("experimental/filesystem" HAVE_EXPERIMENTAL_FILESYSTEM)
+    if (HAVE_EXPERIMENTAL_FILESYSTEM)
+      target_compile_definitions(tinygettext PRIVATE TINYGETTEXT_USE_EXPERIMENTAL_FILESYSTEM)
+    else()
+      message(FATAL_ERROR "No filesystem support found")
+    endif()
+  endif()
+endif()
+
 configure_file(tinygettext.pc.in tinygettext.pc @ONLY)
 
 include(GNUInstallDirs)
