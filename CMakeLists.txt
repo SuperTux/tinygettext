@@ -56,13 +56,7 @@ endif()
 
 # On OSX prior to 10.15 we need to use the experimental filesystem header
 if(CMAKE_OSX_DEPLOYMENT_TARGET AND CMAKE_OSX_DEPLOYMENT_TARGET VERSION_LESS "10.15")
-  include(CheckIncludeFile)
-  check_include_file("experimental/filesystem" HAVE_EXPERIMENTAL_FILESYSTEM)
-  if (HAVE_EXPERIMENTAL_FILESYSTEM)
-    target_compile_definitions(tinygettext PRIVATE TINYGETTEXT_USE_EXPERIMENTAL_FILESYSTEM)
-  else()
-    message(FATAL_ERROR "No filesystem support found")
-  endif()
+  target_compile_definitions(tinygettext PRIVATE TINYGETTEXT_USE_EXPERIMENTAL_FILESYSTEM)
 endif()
 
 configure_file(tinygettext.pc.in tinygettext.pc @ONLY)
