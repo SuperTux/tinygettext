@@ -92,6 +92,9 @@ public:
   /** Return a set of the available languages in their country code */
   std::set<Language> get_languages();
 
+  /** Return a set of the available languages in their country code, found in the specified directory */
+  std::set<Language> get_languages(const std::string& directory);
+
   std::string convertFilename2Language(const std::string &s_in) const;
 
 private:
