@@ -23,7 +23,11 @@
 #include <string>
 
 #ifdef TINYGETTEXT_WITH_SDL
-#  include <SDL3/SDL.h>
+#  if TINYGETTEXT_WITH_SDL == 3
+#    include <SDL3/SDL.h>
+#  elif TINYGETTEXT_WITH_SDL == 2
+#    include <SDL2/SDL.h>
+#  endif
 #else
 #  include <iconv.h>
 #endif
